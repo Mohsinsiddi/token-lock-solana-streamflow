@@ -24,11 +24,14 @@ const pvtKey = "";
 export const wallet = Keypair.fromSecretKey(bs58.decode(pvtKey));
 console.log("Wallet Pubkey", wallet.publicKey.toBase58());
 
+const RPC_URL =
+  "https://solana-devnet.g.alchemy.com/v2/_SIn8vkln9lc1Z7BIj7jCYf5VNnKbOCt";
+
 const main = async () => {
   const STREAMFLOW_DEVNET_PROGRAM_ID =
     "HqDGZjaVRXJ9MGRQEw7qDc2rAr6iH1n1kAQdCZaCMfMZ";
   const client = new SolanaStreamClient(
-    "https://solana-devnet.g.alchemy.com/v2/_SIn8vkln9lc1Z7BIj7jCYf5VNnKbOCt",
+    RPC_URL,
     ICluster.Devnet,
     "max",
     STREAMFLOW_DEVNET_PROGRAM_ID
@@ -66,11 +69,11 @@ const main = async () => {
   };
   try {
     // Create Token Lock
-    const res = await client.create(createStreamParams, solanaParams); // second argument differ depending on a chain
-    console.log("Lock Id", res.metadataId);
+    // const res = await client.create(createStreamParams, solanaParams); // second argument differ depending on a chain
+    // console.log("Lock Id", res.metadataId);
 
     // feed metadata and check details of Lock
-    const metadataId = "91TmSKxYcAYYYZd3JA5qoeqQjU5NR9HdtkxPAG4Sdadt";
+    const metadataId = "8n4Ezm8C5Zng1UHjstiAvQnQGzD745DEHYm9wy2RjucM";
     const data: Types.IGetOneData = {
       id: metadataId, // Identifier of a stream
     };
