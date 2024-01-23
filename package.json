@@ -1,0 +1,20 @@
+{
+  "name": "lp-lock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node",
+    "build": "tsc",
+    "clean": "tsc --build --clean"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@solana/web3.js": "^1.89.1",
+    "@streamflow/stream": "^5.9.10",
+    "bs58": "^5.0.0"
+  }
+}
