@@ -24,8 +24,7 @@ const pvtKey = "";
 export const wallet = Keypair.fromSecretKey(bs58.decode(pvtKey));
 console.log("Wallet Pubkey", wallet.publicKey.toBase58());
 
-const RPC_URL =
-  "https://solana-devnet.g.alchemy.com/v2/_SIn8vkln9lc1Z7BIj7jCYf5VNnKbOCt";
+const RPC_URL = "";
 
 const main = async () => {
   const STREAMFLOW_DEVNET_PROGRAM_ID =
@@ -38,20 +37,31 @@ const main = async () => {
   );
 
   const TOKEN_MINT_ADDRESS = "J5A4oMQ52FTGJVnJX5kHWc2jYuPACFWyUxprW86HrWvt";
+  const TOKEN_DECIMAL = 9;
+  const TOKEN_AMOUNT = 25;
+  const CLIFF_AMOUNT = 10;
+  const AMOUNT_PER_PERIOD = 1;
   const RECIPIENT_ADDRESS = "DzZvW7sP2RVxHbDNXiD5uXG1AQca58UfAXSgKASqAwti";
 
+  const LOCK_NAME = "TEST 1";
+
   const currTimeStamp = Math.floor(Date.now() / 1000);
+
+  const START_TIME = currTimeStamp + 90; // will start in 90 seconds
+  const CLIFF_TIME = START_TIME + 100;
+
+  const TIME_PERIOD_SECONDS = 1;
 
   const createStreamParams: Types.ICreateStreamData = {
     recipient: RECIPIENT_ADDRESS, // Recipient address.
     tokenId: TOKEN_MINT_ADDRESS, // Token mint address.
-    start: currTimeStamp + 60, // Timestamp (in seconds) when the stream/token vesting starts.
-    amount: getBN(25, 9), // depositing 100 tokens with 9 decimals mint.
-    period: 1, // Time step (period) in seconds per which the unlocking occurs.
-    cliff: currTimeStamp + 90, // Vesting contract "cliff" timestamp in seconds.
-    cliffAmount: getBN(10, 9), // amount released on cliff for this recipient
-    amountPerPeriod: getBN(1, 9), //amount released every specified period epoch
-    name: "Test 1.", // The stream name or subject.
+    start: START_TIME, // Timestamp (in seconds) when the stream/token vesting starts.
+    amount: getBN(TOKEN_AMOUNT, TOKEN_DECIMAL), // depositing 100 tokens with 9 decimals mint.
+    period: TIME_PERIOD_SECONDS, // Time step (period) in seconds per which the unlocking occurs.
+    cliff: CLIFF_TIME, // Vesting contract "cliff" timestamp in seconds.
+    cliffAmount: getBN(CLIFF_AMOUNT, TOKEN_DECIMAL), // amount released on cliff for this recipient
+    amountPerPeriod: getBN(AMOUNT_PER_PERIOD, TOKEN_DECIMAL), //amount released every specified period epoch
+    name: LOCK_NAME, // The stream name or subject.
     canTopup: false, // setting to FALSE will effectively create a vesting contract.
     cancelableBySender: true, // Whether or not sender can cancel the stream.
     cancelableByRecipient: false, // Whether or not recipient can cancel the stream.
@@ -69,11 +79,11 @@ const main = async () => {
   };
   try {
     // Create Token Lock
-    // const res = await client.create(createStreamParams, solanaParams); // second argument differ depending on a chain
-    // console.log("Lock Id", res.metadataId);
+    // const resData = await client.create(createStreamParams, solanaParams); // second argument differ depending on a chain
+    // console.log("Lock Id", resData.metadataId);
 
     // feed metadata and check details of Lock
-    const metadataId = "8n4Ezm8C5Zng1UHjstiAvQnQGzD745DEHYm9wy2RjucM";
+    const metadataId = "FNZSC1FNSXCmmHj2X9iA6Xasaqaqoyt2codadDCpxRLx";
     const data: Types.IGetOneData = {
       id: metadataId, // Identifier of a stream
     };
